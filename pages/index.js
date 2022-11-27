@@ -1,12 +1,22 @@
-import { useRizkiContext } from "context";
-import { useTheme } from "@mui/material/styles";
+// material-ui
+import { Typography } from "@mui/material";
 
-export default function Home() {
-  const [init, action] = useRizkiContext();
-  const theme = useTheme();
-  return (
-    <div>
-      Home <br /> {JSON.stringify(theme.typography.fontFamily)}
-    </div>
-  );
-}
+// project imports
+import MainCard from "components/Layout/ui-components/cards/MainCard";
+
+// ==============================|| SAMPLE PAGE ||============================== //
+
+const SamplePage = () => (
+  <MainCard title="Sample Card">
+    <Typography variant="body2">
+      Lorem ipsum dolor sit amen, consenter nipissing eli, sed do elusion tempos
+      incident ut laborers et doolie magna alissa. Ut enif ad minim venice, quin
+      nostrum exercitation illampu laborings nisi ut liquid ex ea commons
+      construal. Duos aube grue dolor in reprehended in voltage veil esse colum
+      doolie eu fujian bulla parian. Exceptive sin ocean cuspidate non
+      president, sunk in culpa qui officiate descent molls anim id est labours.
+    </Typography>
+  </MainCard>
+);
+
+export default SamplePage;

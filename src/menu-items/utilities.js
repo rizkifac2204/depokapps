@@ -14,6 +14,14 @@ const utilities = {
   type: "group",
   children: [
     {
+      id: "login",
+      title: "Login",
+      type: "item",
+      url: "/auth",
+      icon: icons.AcUnitIcon,
+      breadcrumbs: false,
+    },
+    {
       id: "util-typography",
       title: "Typography",
       type: "item",

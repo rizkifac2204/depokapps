@@ -26,9 +26,13 @@ function MyApp({ Component, pageProps }) {
       <ToastContainer />
       <ContextProvider>
         <ThemePrepare>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          {Component.Layout ? (
+            Component.Layout(<Component {...pageProps} />)
+          ) : (
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          )}
         </ThemePrepare>
       </ContextProvider>
     </>
@@ -36,3 +40,4 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
+// setiap page yang mempunyai layout biasanya pakai auth context
