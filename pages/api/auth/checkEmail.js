@@ -6,17 +6,15 @@ const Handler = async (req, res) => {
   if (req.method !== "POST")
     return res.status(405).json({ message: "Method Not Allowed" });
 
-  return res.status(401).json({ message: "Data User Tidak Ditemukan" });
-
   const { email, image } = req.body;
 
   if (!email) return res.status(401).json({ message: "Not Detected" });
 
   const checkUser = await db
-    .select(`admin.*`, `bawaslu.level_bawaslu as level`)
-    .from(`admin`)
-    .innerJoin(`bawaslu`, `admin.bawaslu_id`, `bawaslu.id`)
-    .where(`admin.email_admin`, email)
+    .select(`user.*`, `bawaslu.level_id as level`)
+    .from(`user`)
+    .innerJoin(`bawaslu`, `user.bawaslu_id`, `bawaslu.id`)
+    .where(`user.email_admin`, email)
     .first();
 
   if (!checkUser)

@@ -1,10 +1,11 @@
-import { createContext, useContext, useReducer, useMemo, useRef } from "react";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import { toast } from "react-toastify";
-
-// config theme
-import config from "configs/config";
+import {
+  useEffect,
+  createContext,
+  useContext,
+  useReducer,
+  useMemo,
+  useRef,
+} from "react";
 
 // action
 import * as actionTypes from "store/actions";
@@ -47,13 +48,29 @@ const useRizkiContext = () => {
 const ContextProvider = ({ children }) => {
   const initialState = {
     isOpen: [], // for active default menu
-    fontFamily: config.fontFamily,
-    borderRadius: config.borderRadius,
+    fontFamily: `'Poppins', sans-serif`,
+    borderRadius: 12,
     opened: true,
     darkMode: false,
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  const isFirstRun = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      const settingDisplay = localStorage.getItem("settingDisplay");
+      if (settingDisplay) {
+        const setting = JSON.parse(settingDisplay);
+        handleFont(dispatch, setting.fontFamily);
+        handleBorder(dispatch, setting.borderRadius);
+        handleDarkMode(dispatch, setting.darkMode);
+      }
+      return;
+    }
+    localStorage.setItem("settingDisplay", JSON.stringify(state));
+  }, [state.darkMode, state.fontFamily, state.borderRadius]);
 
   return (
     <RizkiFach.Provider value={[state, dispatch]}>

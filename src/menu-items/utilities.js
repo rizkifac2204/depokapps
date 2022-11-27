@@ -23,9 +23,9 @@ const utilities = {
     },
     {
       id: "util-typography",
-      title: "Typography",
+      title: "Contoh",
       type: "item",
-      url: "/c1",
+      url: "/admin/contoh",
       icon: icons.AcUnitIcon,
       breadcrumbs: false,
     },

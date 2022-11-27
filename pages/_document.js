@@ -5,7 +5,12 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <meta name="description" content="Bawaslu Depok Apps"></meta>
+          <meta name="description" content="Bawaslu Depok Apps" />
+          <meta
+            name="keywords"
+            content="Bawaslu, Bawaslu Depok, Rizki Fahruroji, Bawaslu Apps"
+          />
+          <meta name="author" content="Rizki Fahruroji" />
           <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
           <link
             rel="stylesheet"

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
@@ -22,6 +23,7 @@ import {
   Stack,
   Switch,
   Typography,
+  Skeleton,
 } from "@mui/material";
 
 // third-party
@@ -30,21 +32,21 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 // project imports
 import MainCard from "components/Layout/ui-components/cards/MainCard";
 import Transitions from "components/Layout/ui-components/extended/Transitions";
-const User1 = "/images/avatar-4.jpg";
 
 // assets
 import LogoutIcon from "@mui/icons-material/Logout";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
-import PersonIcon from "@mui/icons-material/Person";
 
 import { useRizkiContext } from "context";
+import { useAuthContext } from "context/authContext";
 
 // ==============================|| PROFILE MENU ||============================== //
 
 const ProfileSection = () => {
   const theme = useTheme();
   const [init, action] = useRizkiContext();
+  const { user, logout } = useAuthContext();
   const { borderRadius } = init;
 
   const [sdm, setSdm] = useState(true);
@@ -56,9 +58,6 @@ const ProfileSection = () => {
    * anchorRef is used on different componets and specifying one type leads to other components throwing an error
    * */
   const anchorRef = useRef(null);
-  const handleLogout = async () => {
-    console.log("Logout");
-  };
 
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -88,6 +87,7 @@ const ProfileSection = () => {
     prevOpen.current = open;
   }, [open]);
 
+  if (!user) return <Skeleton variant="circular" width={40} height={40} />;
   return (
     <>
       <Chip
@@ -112,7 +112,8 @@ const ProfileSection = () => {
         }}
         icon={
           <Avatar
-            src={User1}
+            src={user.image}
+            alt={user.name}
             sx={{
               ...theme.typography.mediumAvatar,
               margin: "8px 0 8px 8px !important",
@@ -169,16 +170,18 @@ const ProfileSection = () => {
                   <Box sx={{ p: 2 }}>
                     <Stack>
                       <Stack direction="row" spacing={0.5} alignItems="center">
-                        <Typography variant="h4">Good Morning,</Typography>
+                        <Typography variant="h4">Halo</Typography>
                         <Typography
                           component="span"
                           variant="h4"
                           sx={{ fontWeight: 400 }}
                         >
-                          Johne Doe
+                          {user.name}
                         </Typography>
                       </Stack>
-                      <Typography variant="subtitle2">Project Admin</Typography>
+                      <Typography variant="subtitle2">
+                        - Bawaslu Kota Depok
+                      </Typography>
                     </Stack>
                     <OutlinedInput
                       sx={{ width: "100%", pr: 1, pl: 2, my: 2 }}
@@ -304,8 +307,12 @@ const ProfileSection = () => {
                           </ListItemIcon>
                           <ListItemText
                             primary={
-                              <Typography variant="body2">
-                                Account Settings
+                              <Typography
+                                variant="body2"
+                                component={Link}
+                                href="/admin/profile"
+                              >
+                                Pengaturan Akun
                               </Typography>
                             }
                           />
@@ -314,52 +321,8 @@ const ProfileSection = () => {
                           sx={{
                             borderRadius: `${borderRadius}px`,
                           }}
-                          selected={selectedIndex === 1}
-                          onClick={(event) =>
-                            handleListItemClick(
-                              event,
-                              1,
-                              "/user/social-profile/posts"
-                            )
-                          }
-                        >
-                          <ListItemIcon>
-                            <PersonIcon
-                              sx={{ stroke: 1.5, fontSize: "1.3rem" }}
-                            />
-                          </ListItemIcon>
-                          <ListItemText
-                            primary={
-                              <Grid
-                                container
-                                spacing={1}
-                                justifyContent="space-between"
-                              >
-                                <Grid item>
-                                  <Typography variant="body2">
-                                    Social Profile
-                                  </Typography>
-                                </Grid>
-                                <Grid item>
-                                  <Chip
-                                    label="02"
-                                    size="small"
-                                    sx={{
-                                      bgcolor: theme.palette.warning.dark,
-                                      color: theme.palette.background.default,
-                                    }}
-                                  />
-                                </Grid>
-                              </Grid>
-                            }
-                          />
-                        </ListItemButton>
-                        <ListItemButton
-                          sx={{
-                            borderRadius: `${borderRadius}px`,
-                          }}
                           selected={selectedIndex === 4}
-                          onClick={handleLogout}
+                          onClick={logout}
                         >
                           <ListItemIcon>
                             <LogoutIcon

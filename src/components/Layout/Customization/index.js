@@ -47,34 +47,36 @@ const Customization = () => {
   };
 
   // state - border radius
-  const [borderRadius, setBorderRadius] = useState(initBorder);
+  const [borderRadius, setBorderRadius] = useState(12);
+  useEffect(() => {
+    setBorderRadius((prev) => initBorder);
+  }, [initBorder]);
   const handleBorderRadius = (event, newValue) => {
-    setBorderRadius(newValue);
+    handleBorder(action, newValue);
   };
 
-  useEffect(() => {
-    handleBorder(action, borderRadius);
-  }, [action, borderRadius]);
-
-  let initialFont;
-  switch (initFont) {
-    case `'Inter', sans-serif`:
-      initialFont = "Inter";
-      break;
-    case `'Poppins', sans-serif`:
-      initialFont = "Poppins";
-      break;
-    case `'Roboto', sans-serif`:
-    default:
-      initialFont = "Roboto";
-      break;
-  }
-
   // state - font family
-  const [fontFamily, setFontFamily] = useState(initialFont);
+  const [fontFamily, setFontFamily] = useState("");
   useEffect(() => {
+    let initialFont;
+    switch (initFont) {
+      case `'Inter', sans-serif`:
+        initialFont = "Inter";
+        break;
+      case `'Poppins', sans-serif`:
+        initialFont = "Poppins";
+        break;
+      case `'Roboto', sans-serif`:
+      default:
+        initialFont = "Roboto";
+        break;
+    }
+    setFontFamily((prev) => initialFont);
+  }, [initFont]);
+
+  const handleFontFamily = (value) => {
     let newFont;
-    switch (fontFamily) {
+    switch (value) {
       case "Inter":
         newFont = `'Inter', sans-serif`;
         break;
@@ -87,7 +89,7 @@ const Customization = () => {
         break;
     }
     handleFont(action, newFont);
-  }, [action, fontFamily]);
+  };
 
   return (
     <>
@@ -138,7 +140,7 @@ const Customization = () => {
                   <RadioGroup
                     aria-label="font-family"
                     value={fontFamily}
-                    onChange={(e) => setFontFamily(e.target.value)}
+                    onChange={(e) => handleFontFamily(e.target.value)}
                     name="row-radio-buttons-group"
                   >
                     <FormControlLabel
@@ -181,14 +183,7 @@ const Customization = () => {
             <Grid item xs={12}>
               {/* border radius */}
               <SubCard title="Border Radius">
-                <Grid
-                  item
-                  xs={12}
-                  container
-                  spacing={2}
-                  alignItems="center"
-                  sx={{ mt: 2.5 }}
-                >
+                <Grid item xs={12} container spacing={2} alignItems="center">
                   <Grid item>
                     <Typography variant="h6" color="secondary">
                       4px

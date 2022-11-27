@@ -109,7 +109,6 @@ function Layout({ children }) {
           rightAlign
         />
         {children}
-        {/* {JSON.stringify(theme, null, 2)} */}
       </Main>
 
       <Customization />

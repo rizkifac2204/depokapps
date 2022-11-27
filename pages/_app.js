@@ -15,26 +15,28 @@ Router.events.on("routeChangeError", () => NProgress.done());
 import { ContextProvider } from "context";
 import ThemePrepare from "components/Layout/ThemePrepare";
 import Layout from "components/Layout";
+import { AuthContextProvider } from "context/authContext";
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
-        <title>Depok App</title>
       </Head>
       <ToastContainer />
-      <ContextProvider>
-        <ThemePrepare>
-          {Component.Layout ? (
-            Component.Layout(<Component {...pageProps} />)
-          ) : (
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          )}
-        </ThemePrepare>
-      </ContextProvider>
+      <AuthContextProvider>
+        <ContextProvider>
+          <ThemePrepare>
+            {Component.Layout ? (
+              Component.Layout(<Component {...pageProps} />)
+            ) : (
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            )}
+          </ThemePrepare>
+        </ContextProvider>
+      </AuthContextProvider>
     </>
   );
 }

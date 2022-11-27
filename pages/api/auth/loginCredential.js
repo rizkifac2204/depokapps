@@ -13,10 +13,10 @@ const LoginCredential = async (req, res) => {
     return res.status(401).json({ message: "Isi Semua Data" });
 
   const checkUser = await db
-    .select(`admin.*`, `bawaslu.level_bawaslu as level`)
-    .from(`admin`)
-    .innerJoin(`bawaslu`, `admin.bawaslu_id`, `bawaslu.id`)
-    .where(`admin.username`, username)
+    .select(`user.*`, `bawaslu.level_id as level`)
+    .from(`user`)
+    .innerJoin(`bawaslu`, `user.bawaslu_id`, `bawaslu.id`)
+    .where(`user.username`, username)
     .first();
 
   if (!checkUser)
