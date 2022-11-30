@@ -8,7 +8,7 @@ import Logo from "../ui-components/Logo";
 
 const LogoSection = () => (
   <ButtonBase disableRipple>
-    <Link href={`/`}>
+    <Link href={`/admin`}>
       <Logo />
     </Link>
   </ButtonBase>

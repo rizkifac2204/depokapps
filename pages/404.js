@@ -21,20 +21,18 @@ function Error() {
           minHeight: "100vh",
         }}
       >
-        <Container maxWidth="md">
+        <Container>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item ms={6}>
               <Typography variant="h1">404</Typography>
               <Typography variant="h6">
                 Halaman Yang Anda Tuju Tidak Ditemukan
               </Typography>
-              {/* <Link href="/"> */}
               <Button variant="contained" onClick={() => router.back()}>
                 Kembali Ke Halaman Sebelumnya
               </Button>
-              {/* </Link> */}
             </Grid>
-            <Grid item xs={6}>
+            <Grid item ms={6}>
               <img
                 src="https://cdn.pixabay.com/photo/2017/03/09/12/31/error-2129569__340.jpg"
                 alt=""

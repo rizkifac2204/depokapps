@@ -1,10 +1,10 @@
 import dashboard from "./dashboard";
-import utilities from "./utilities";
+import simpeg from "./simpeg";
 
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-  items: [dashboard, utilities],
+  items: [dashboard, simpeg],
 };
 
 export default menuItems;

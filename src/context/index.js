@@ -51,7 +51,7 @@ const ContextProvider = ({ children }) => {
     fontFamily: `'Poppins', sans-serif`,
     borderRadius: 12,
     opened: true,
-    darkMode: false,
+    darkMode: true,
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);

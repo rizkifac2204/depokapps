@@ -13,10 +13,10 @@ export default function Handler() {
     },
   }).use(async (req, res, next) => {
     try {
-      const { eppidV2 } = cookie.parse(req.headers.cookie);
-      if (!eppidV2)
+      const { depokApps } = cookie.parse(req.headers.cookie);
+      if (!depokApps)
         return res.status(401).json({ message: "Akses Tidak Dikenal" });
-      const decoded = jwtDecode(eppidV2);
+      const decoded = jwtDecode(depokApps);
       req.session = {
         user: decoded,
       };

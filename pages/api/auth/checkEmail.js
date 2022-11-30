@@ -11,9 +11,9 @@ const Handler = async (req, res) => {
   if (!email) return res.status(401).json({ message: "Not Detected" });
 
   const checkUser = await db
-    .select(`user.*`, `bawaslu.level_id as level`)
+    .select(`user.*`, `level.level`)
     .from(`user`)
-    .innerJoin(`bawaslu`, `user.bawaslu_id`, `bawaslu.id`)
+    .innerJoin(`level`, `user.level_id`, `level.id`)
     .where(`user.email_admin`, email)
     .first();
 
